@@ -1,0 +1,13 @@
+node_modules/
+
+.env
+
+uploads/
+
+output/
+
+*.log
+
+.DS_Store
+
+.vscode/settings.json
