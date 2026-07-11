@@ -48,19 +48,19 @@ pasta_arquivo <- "C:/Users/Samsung/OneDrive/Desktop/HUB 2026/ANALISES_R"
 
 # Nome do arquivo que sera lido, com extensao.
 # Exemplo: "indicadores_central.xlsx"
-nome_arquivo_entrada <- "CO_LF.xlsx"
+nome_arquivo_entrada <- ""
 
 # Nome da aba que sera lida.
 # Para ler uma aba: aba <- "CO_PJ"
 # Para ler varias abas: aba <- c("CO_PJ", "OUTRA_ABA")
 # Para ler todas as abas do arquivo Excel: aba <- c()
 # Se deixar vazio, o script le a primeira aba do arquivo.
-aba <- "CO_LF_DATA"
+aba <- ""
 
 # Nome do arquivo de saida.
 # Se deixar vazio, o script cria automaticamente:
 # ANALISE_<nome do arquivo original>.xlsx
-nome_arquivo_saida <- "ANALISE_CO_LF"
+nome_arquivo_saida <- "ANALISE.xlsx"
 
 # Colunas que identificam o intervalo da analise.
 # Se deixar vazio, o script tenta encontrar automaticamente colunas de data/hora.
