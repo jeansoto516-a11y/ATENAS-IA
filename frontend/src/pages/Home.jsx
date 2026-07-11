@@ -3,6 +3,7 @@ import Card from "../components/ui/Card";
 import Button from "../components/ui/Button";
 import UploadArea from "../components/upload/UploadArea";
 import { uploadArquivo } from "../services/uploadService";
+import Input from "../components/ui/Input";
 
 function Home() {
         const [formData, setFormData] = useState({
@@ -70,6 +71,30 @@ function Home() {
                     ...prev, file,
                 }))
             }
+            />
+
+            <Input
+            label="Nome do arquivo de entrada"
+            name="entrada"
+            value={formData.entrada}
+            onChange={handlechange}
+            placeholder="Exemplo: indicadores_central.xlsx"
+            />
+
+            <Input
+            label="Nome da aba"
+            name="aba"
+            value={formData.aba}
+            onChange={handlechange}
+            placeholder="Exemplo: CO_PJ"
+            />
+
+            <Input
+            label="Nome do arquivo de saída"
+            name="saida"
+            value={formData.saida}
+            onChange={handlechange}
+            placeholder="Exemplo: ANALISE_INDICADORES"
             />
 
             <Button onClick={handleUpload}>
