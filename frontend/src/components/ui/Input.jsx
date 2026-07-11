@@ -1,9 +1,11 @@
 function Input({
     label,
+    name,
     value,
     onChange,
-    placeholder
-}) {
+    placeholder,
+})
+ {
     return (
         <div className="flex flex-col gap-2">
 
@@ -13,6 +15,7 @@ function Input({
 
             <input
                 type="text"
+                name={name}
                 value={value}
                 onChange={onChange}
                 placeholder={placeholder}
