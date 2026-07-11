@@ -66,11 +66,17 @@ function Home() {
 
             <UploadArea
             file={formData.file}
-            setFile={(file) =>
-                setFormData((prev) => ({
-                    ...prev, file,
-                }))
-            }
+            setFile={(file) => {
+
+                const nomesemextensao = file.name.replace(/\.[^/.]+$/, "");
+
+                setFormData({
+                    file,
+                    entrada: file.name,
+                    aba: nomesemextensao,
+                    saida: `${nomeSemExtensao}_TRATADO`,
+                });
+            }}
             />
 
             <Input
