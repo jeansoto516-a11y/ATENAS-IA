@@ -5,7 +5,12 @@ import UploadArea from "../components/upload/UploadArea";
 import { uploadArquivo } from "../services/uploadService";
 
 function Home() {
-        const [file, setFile] = useState(null);
+        const [formData, setFormData] = useState({
+            file: null,
+            entrada: "",
+            aba: "",
+            saida: "",
+        });
 
         async function handleUpload() {
 
