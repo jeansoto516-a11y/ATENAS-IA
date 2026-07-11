@@ -2,9 +2,35 @@ import { useState } from "react";
 import Card from "../components/ui/Card";
 import Button from "../components/ui/Button";
 import UploadArea from "../components/upload/UploadArea";
+import { uploadArquivo } from "../services/uploadService";
 
 function Home() {
         const [file, setFile] = useState(null);
+
+        async function handleUpload() {
+
+    if (!file) {
+    alert("Selecione um arquivo primeiro.");
+    return;
+    }
+
+    try {
+
+    const resposta = await uploadArquivo(file);
+
+    console.log(resposta);
+
+    alert("Arquivo enviado com sucesso!");
+
+    } catch (erro) {
+
+    console.error(erro);
+
+    alert("Erro ao enviar arquivo.");
+
+    }
+
+}
 
     return (
     <div className="min-h-screen bg-slate-100 flex items-center justify-center p-6">
@@ -28,7 +54,7 @@ function Home() {
             setFile={setFile}
             />
 
-            <Button>
+            <Button onClick={handleUpload}>
             Processar Arquivo
             </Button>
 
