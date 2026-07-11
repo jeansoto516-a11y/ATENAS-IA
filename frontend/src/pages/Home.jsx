@@ -12,6 +12,15 @@ function Home() {
             saida: "",
         });
 
+        function handlechange(event) {
+            const { name, value } = event.target;
+
+            setFormData((prev) => ({
+                ...prev,
+                [name]: value,
+            }));
+        }
+
         async function handleUpload() {
 
     if (!file) {
