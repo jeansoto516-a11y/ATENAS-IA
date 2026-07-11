@@ -44,23 +44,23 @@ library(tools)
 ##############################################################
 
 # Pasta onde esta o arquivo que sera lido.
-pasta_arquivo <- ""
+pasta_arquivo <- "C:/Users/Samsung/OneDrive/Desktop/HUB 2026/ANALISES_R"
 
 # Nome do arquivo que sera lido, com extensao.
 # Exemplo: "indicadores_central.xlsx"
-nome_arquivo_entrada <- ""
+nome_arquivo_entrada <- "CO_LF.xlsx"
 
 # Nome da aba que sera lida.
 # Para ler uma aba: aba <- "CO_PJ"
 # Para ler varias abas: aba <- c("CO_PJ", "OUTRA_ABA")
 # Para ler todas as abas do arquivo Excel: aba <- c()
 # Se deixar vazio, o script le a primeira aba do arquivo.
-aba <- ""
+aba <- "CO_LF_DATA"
 
 # Nome do arquivo de saida.
 # Se deixar vazio, o script cria automaticamente:
 # ANALISE_<nome do arquivo original>.xlsx
-nome_arquivo_saida <- ""
+nome_arquivo_saida <- "ANALISE_CO_LF"
 
 # Colunas que identificam o intervalo da analise.
 # Se deixar vazio, o script tenta encontrar automaticamente colunas de data/hora.
@@ -85,7 +85,7 @@ indicadores_menor_melhor <- c("TMA", "TME", "ABS", "FILA", "TEMPO")
 # Se deixar NA, essa analise nao sera criada.
 # Exemplo: valor_tsf_ideal <- 80
 coluna_tsf_ideal <- "TSF IDEAL"
-valor_tsf_ideal <- NA
+valor_tsf_ideal <- 56
 
 # Graficos editaveis no Excel.
 # Se deixar vazio, o script cria graficos para todos os comparativos Plano x Real.
