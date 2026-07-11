@@ -55,8 +55,12 @@ function Home() {
             </div>
 
             <UploadArea
-            file={file}
-            setFile={setFile}
+            file={formData.file}
+            setFile={(file) =>
+                setFormData((prev) => ({
+                    ...prev, file,
+                }))
+            }
             />
 
             <Button onClick={handleUpload}>
