@@ -55,7 +55,7 @@ nome_arquivo_entrada <- ""
 # Para ler varias abas: aba <- c("CO_PJ", "OUTRA_ABA")
 # Para ler todas as abas do arquivo Excel: aba <- c()
 # Se deixar vazio, o script le a primeira aba do arquivo.
-aba <- ""
+aba <- "ANALITICO"
 
 # Nome do arquivo de saida.
 # Se deixar vazio, o script cria automaticamente:
