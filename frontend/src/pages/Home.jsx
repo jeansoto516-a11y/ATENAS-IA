@@ -31,7 +31,7 @@ function Home() {
 
     try {
 
-    const resposta = await uploadArquivo(file);
+    const resposta = await uploadArquivo(formData);
 
     console.log(resposta);
 
