@@ -6,6 +6,8 @@ function UploadArea({ file, setFile }) {
     function handleFile(event) {
         const selectedFile = event.target.files[0];
 
+        console.log(selectedFile);
+
         if (selectedFile) {
             setFile(selectedFile);
         }

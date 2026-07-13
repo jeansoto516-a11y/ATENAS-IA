@@ -13,7 +13,7 @@ function Home() {
             saida: "",
         });
 
-        function handlechange(event) {
+        function handleChange(event) {
             const { name, value } = event.target;
 
             setFormData((prev) => ({
@@ -24,7 +24,7 @@ function Home() {
 
         async function handleUpload() {
 
-    if (!file) {
+    if (!formData.file) {
     alert("Selecione um arquivo primeiro.");
     return;
     }
@@ -68,14 +68,15 @@ function Home() {
                 file={formData.file}
                 setFile={(file) => {
 
-                    const comesemextensão = file.namereplace(/\.[^/.]+$/, "");
+                    const nomesemextensão = file.name.replace(/\.[^/.]+$/, "");
 
-                    setFormData({
+                    setFormData((prev) => ({
+                        ...prev,
                         file,
                         entrada: file.name,
                         aba: "ANALITICO",
-                        saida: `${nomeSemExtensao}_TRATADO`,
-                    });
+                        saida: `${nomesemextensão}_TRATADO`,
+                    }));
                 
                 }}
             />
@@ -84,7 +85,7 @@ function Home() {
             label="Nome do arquivo de entrada"
             name="entrada"
             value={formData.entrada}
-            onChange={handlechange}
+            onChange={handleChange}
             placeholder="Exemplo: indicadores_central.xlsx"
             />
 
@@ -92,7 +93,7 @@ function Home() {
             label="Nome da aba"
             name="aba"
             value={formData.aba}
-            onChange={handlechange}
+            onChange={handleChange}
             placeholder="Exemplo: CO_PJ"
             />
 
@@ -100,7 +101,7 @@ function Home() {
             label="Nome do arquivo de saída"
             name="saida"
             value={formData.saida}
-            onChange={handlechange}
+            onChange={handleChange}
             placeholder="Exemplo: ANALISE_INDICADORES"
             />
 
