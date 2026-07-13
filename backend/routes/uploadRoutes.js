@@ -2,20 +2,12 @@ const express = require("express");
 const router = express.Router();
 
 const upload = require("../middlewares/uploadMiddleware");
+const uploadController = require("../controllers/uploadController");
 
-// Rota para upload de arquivos
-router.post("/", upload.single("arquivo"), (req, res) => {
-
-    if (!req.file) {
-        return res.status(400).json({ 
-            error: "Nenhum arquivo enviado!" 
-        });
-    }
-
-    res.status(200).json({
-        message: "Arquivo enviado com sucesso!",
-        arquivo: req.file.filename
-    });
-});
+router.post(
+    "/",
+    upload.single("arquivo"),
+    uploadController.uploadArquivo
+);
 
 module.exports = router;
