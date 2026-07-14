@@ -1,11 +1,11 @@
 const fs = require('fs');
 const path = require ("path")
 
-function criarscriptTemporario({ entrada, aba, saida}) {
+function criarScriptTemporario({ entrada, aba, saida}) {
 
-    const criptOriginal = path.join(
+    const scriptOriginal = path.join(
     __dirname,
-    "../../scripts-r/Tratamento_indicadores.R"
+    "../../scripts-r/AUX_ANALISE.R"
     );
 
     const scriptTemporario = path.join(
@@ -13,7 +13,7 @@ function criarscriptTemporario({ entrada, aba, saida}) {
     "../temp/tratamento_temp.R"
     );
 
-    let conteudo = fs.readFileSync(criptOriginal, "utf-8");
+    let conteudo = fs.readFileSync(scriptOriginal, "utf-8");
 
     conteudo = conteudo.replace(
         /nome_arquivo_entrada\s*<-\s*".*?"/,
@@ -22,7 +22,7 @@ function criarscriptTemporario({ entrada, aba, saida}) {
 
     conteudo = conteudo.replace(
         /aba\s*<-\s*".*?"/,
-        `nome_aba_entrada <- "${aba}"`
+        `aba <- "${aba}"`
     );
 
     conteudo = conteudo.replace(
@@ -36,5 +36,5 @@ function criarscriptTemporario({ entrada, aba, saida}) {
 }
 
 module.exports = {
-    criarscriptTemporario
+    criarScriptTemporario
 };

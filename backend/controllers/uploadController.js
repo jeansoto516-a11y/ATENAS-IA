@@ -1,3 +1,5 @@
+const rService = require("../services/rService");
+
 exports.uploadArquivo = (req, res) => {
 
     if (!req.file) {
@@ -6,20 +8,30 @@ exports.uploadArquivo = (req, res) => {
         });
     }
 
-    console.log("Arquivo:", req.file.filename);
+    try {
 
-    console.log("Entrada:", req.body.entrada);
+        const caminhoScript = rService.criarScriptTemporario({
+            entrada: req.body.entrada,
+            aba: req.body.aba,
+            saida: req.body.saida
+        });
 
-    console.log("Aba:", req.body.aba);
+        console.log("Script temporário criado:");
+        console.log(caminhoScript);
 
-    console.log("Saída:", req.body.saida);
+        res.status(200).json({
+            message: "Script temporário criado com sucesso!",
+            arquivo: req.file.filename
+        });
 
-    res.status(200).json({
-        message: "Arquivo recebido com sucesso!",
-        arquivo: req.file.filename,
-        entrada: req.body.entrada,
-        aba: req.body.aba,
-        saida: req.body.saida
-    });
+    } catch (erro) {
+
+        console.error(erro);
+
+        res.status(500).json({
+            error: "Erro ao criar script temporário."
+        });
+
+    }
 
 };
