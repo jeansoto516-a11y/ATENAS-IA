@@ -16,17 +16,17 @@ function criarscriptTemporario({ entrada, aba, saida}) {
     let conteudo = fs.readFileSync(criptOriginal, "utf-8");
 
     conteudo = conteudo.replace(
-        '"nome_arquivo_entrada <- ""',
+        /nome_arquivo_entrada\s*<-\s*".*?"/,
         `nome_arquivo_entrada <- "${entrada}"`
     );
 
     conteudo = conteudo.replace(
-        '"nome_aba_entrada <- ""',
+        /aba\s*<-\s*".*?"/,
         `nome_aba_entrada <- "${aba}"`
     );
 
     conteudo = conteudo.replace(
-        '"nome_arquivo_saida <- ""',
+        /nome_arquivo_saida\s*<-\s*".*?"/,
         `nome_arquivo_saida <- "${saida}"`
     );
 
