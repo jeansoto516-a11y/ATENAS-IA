@@ -34,7 +34,34 @@ function criarScriptTemporario({ entrada, aba, saida}) {
 
     return scriptTemporario;
 }
+const { exec} = require("child_process");
+
+function executarScript(script) {
+
+    return new Promise((resolve, reject) => {
+        
+        const caminhoR = 
+            '"C:\\Programa Files\\R\\R-4.6.0\\bin\\x64\\Rscript.exe"';
+
+        exec(`${caminhoR} "${script}"`, (error, stdout, stderr) => {
+
+            if (error) {
+                return reject(erro);
+            }
+
+            if (stderr) {
+                console.log(stderr);
+            }
+
+            console.log(stdout);
+
+            resolve();
+
+        });
+    });
+}
 
 module.exports = {
-    criarScriptTemporario
+    criarScriptTemporario,
+    executarScript
 };
