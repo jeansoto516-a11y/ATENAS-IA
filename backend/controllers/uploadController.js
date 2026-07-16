@@ -1,6 +1,6 @@
 const rService = require("../services/rService");
 
-exports.uploadArquivo = (req, res) => {
+exports.uploadArquivo = async (req, res) => {
 
     if (!req.file) {
         return res.status(400).json({
@@ -19,17 +19,20 @@ exports.uploadArquivo = (req, res) => {
         console.log("Script temporário criado:");
         console.log(caminhoScript);
 
+        await rService.executarScript(caminhoScript);
+
+        console.log("Script R executado com sucesso!");
+
         res.status(200).json({
-            message: "Script temporário criado com sucesso!",
-            arquivo: req.file.filename
+            message: "Processamento concluído com sucesso!"
         });
 
     } catch (erro) {
 
-        console.error(erro);
+        console.error("Erro no processamento:", erro);
 
         res.status(500).json({
-            error: "Erro ao criar script temporário."
+            error: "Erro ao executar o processamento."
         });
 
     }
