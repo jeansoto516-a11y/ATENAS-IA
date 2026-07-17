@@ -75,7 +75,7 @@ function Home() {
                         file,
                         entrada: file.name,
                         aba: "ANALITICO",
-                        saida: `${nomesemextensão}_TRATADO`,
+                        saida: `${nomesemextensão}_TRATADO.xlsx`,
                     }));
                 
                 }}
