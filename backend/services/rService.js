@@ -39,26 +39,32 @@ const { exec} = require("child_process");
 function executarScript(script) {
 
     return new Promise((resolve, reject) => {
-        
-        const caminhoR = 
+
+        const caminhoR =
             '"C:\\Program Files\\R\\R-4.6.0\\bin\\x64\\Rscript.exe"';
 
         exec(`${caminhoR} "${script}"`, (error, stdout, stderr) => {
 
+            console.log("========== STDOUT ==========");
+            console.log(stdout);
+
+            console.log("========== STDERR ==========");
+            console.log(stderr);
+
             if (error) {
+                console.log("========== ERROR ==========");
+                console.log(error);
                 return reject(error);
             }
 
-            if (stderr) {
-                console.log(stderr);
-            }
-
-            console.log(stdout);
+            console.log("R finalizou.");
 
             resolve();
 
         });
+
     });
+
 }
 
 module.exports = {

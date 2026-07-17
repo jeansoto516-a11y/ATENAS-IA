@@ -60,7 +60,7 @@ aba <- "ANALITICO"
 # Nome do arquivo de saida.
 # Se deixar vazio, o script cria automaticamente:
 # ANALISE_<nome do arquivo original>.xlsx
-nome_arquivo_saida <- "CO_LF_TRATADO"
+nome_arquivo_saida <- "CO_LF_TRATADO.xlsx"
 
 # Colunas que identificam o intervalo da analise.
 # Se deixar vazio, o script tenta encontrar automaticamente colunas de data/hora.
