@@ -212,7 +212,7 @@ referencia_excel <- function(sheet, col_ini, linha_ini, col_fim, linha_fim) {
 }
 
 compactar_pasta_xlsx <- function(pasta_xlsx, arquivo_saida) {
-  arquivo_temp <- tempfile(fileext = ".xlsx")
+  arquivo_temp <- tempfile(fileext = ".zip")
 
   if (.Platform$OS.type == "windows" && nzchar(Sys.which("powershell"))) {
     comando <- paste0(
@@ -235,7 +235,11 @@ compactar_pasta_xlsx <- function(pasta_xlsx, arquivo_saida) {
     utils::zip(zipfile = arquivo_temp, files = arquivos)
   }
 
-  file.copy(arquivo_temp, arquivo_saida, overwrite = TRUE)
+  if (file.exists(arquivo_saida)) {
+  file.remove(arquivo_saida)
+}
+
+file.rename(arquivo_temp, arquivo_saida)
 }
 
 separar_colunas_config <- function(texto) {
