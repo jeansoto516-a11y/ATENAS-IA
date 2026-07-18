@@ -4,6 +4,7 @@ import Button from "../components/ui/Button";
 import UploadArea from "../components/upload/UploadArea";
 import { uploadArquivo } from "../services/uploadService";
 import Input from "../components/ui/Input";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
         const [formData, setFormData] = useState({
@@ -12,6 +13,9 @@ function Home() {
             aba: "",
             saida: "",
         });
+
+        const navigate = useNavigate();
+        const [processamentoConcluido, setProcessamentoConcluido] = useState(false);
 
         function handleChange(event) {
             const { name, value } = event.target;
@@ -36,6 +40,7 @@ function Home() {
     console.log(resposta);
 
     alert("Arquivo enviado com sucesso!");
+    setProcessamentoConcluido(true);
 
     } catch (erro) {
 
@@ -108,6 +113,12 @@ function Home() {
             <Button onClick={handleUpload}>
             Processar Arquivo
             </Button>
+
+            {processamentoConcluido && (
+                <Button onClick={() => navigate("/dashboard")}>
+                    Abrir Dashboard
+                    </Button>
+            )}
 
         </div>
 
