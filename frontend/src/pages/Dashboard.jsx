@@ -1,9 +1,16 @@
+import Siderbar from "../components/layout/Sidebar";
+import Header from "../components/layout/Header";
+import MainContent from "../components/layout/MainContent";
+
 function Dashboard() {
     return (
-        <div className="min-h-screen bg-slate-100 flex items-center justify-center">
-            <h1 className="text-4xl font-bold">
-                Dashboard Atenas IA
-            </h1>
+        <div className="flex h-screen">
+            
+            <Siderbar />
+            <div className="flex flex-col flex-1">
+                <Header />
+                <MainContent />
+            </div>
         </div>
     );
 }
