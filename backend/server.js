@@ -10,9 +10,11 @@ app.use(express.json());
 // Importa as rotas
 const routes = require("./routes");
 const uploadRoutes = require("./routes/uploadRoutes");
+const indicadoresRoutes = require("./routes/indicadoresRoutes");
 
 app.use("/", routes);
 app.use("/upload", uploadRoutes);
+app.use("/api/indicadores", indicadoresRoutes);
 
 const PORT = process.env.PORT || 3000;
 
