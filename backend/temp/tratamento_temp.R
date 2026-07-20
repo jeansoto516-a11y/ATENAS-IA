@@ -12,12 +12,13 @@
 # install.packages("stringr")
 # install.packages("tidyr")
 # install.packages("tools")
+# install.packages("jsonlite")
 
 ##############################################################
 ## BIBLIOTECAS
 ##############################################################
 
-pacotes_necessarios <- c("readxl", "openxlsx", "dplyr", "stringr", "tidyr", "tools")
+pacotes_necessarios <- c("readxl", "openxlsx", "dplyr", "stringr", "tidyr", "tools", "jsonlite")
 pacotes_faltando <- pacotes_necessarios[!sapply(pacotes_necessarios, requireNamespace, quietly = TRUE)]
 
 if (length(pacotes_faltando) > 0) {
@@ -38,6 +39,7 @@ library(dplyr)
 library(stringr)
 library(tidyr)
 library(tools)
+library(jsonlite)
 
 ##############################################################
 ## CONFIGURACOES - ALTERAR SOMENTE ESTA PARTE
@@ -1189,8 +1191,41 @@ for (grafico_info in graficos_para_inserir) {
   )
 }
 
+
+
 cat("--------------------------------------\n")
 cat("Analise concluida com sucesso!\n")
 cat("Arquivo salvo em:\n")
 cat(arquivo_saida, "\n")
 cat("--------------------------------------\n")
+
+##############################################################
+## EXPORTAR INDICADORES PARA JSON
+##############################################################
+
+indicadores <- list(
+  metadata = list(
+    status = "ok",
+    versao = "1.0",
+    dataProcessamento = as.character(Sys.time())
+  ),
+  
+  kpis = list(
+    sla = 0,
+    forecast = 0,
+    hcPlanejado = 0,
+    hcReal = 0,
+    tma = 0,
+    conversao = 0,
+    produtividade = 0
+  )
+)
+
+write_json(
+  indicadores,
+  file.path(dirname(nome_arquivo_saida), "indicadores.json"),
+  pretty = TRUE,
+  auto_unbox = TRUE
+)
+
+cat("\n✅ Arquivo indicadores.json criado com sucesso!\n")

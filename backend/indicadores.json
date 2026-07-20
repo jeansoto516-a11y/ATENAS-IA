@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "status": "ok",
+    "versao": "1.0",
+    "dataProcessamento": "2026-07-19 13:03:59.451843"
+  },
+  "kpis": {
+    "sla": 0,
+    "forecast": 0,
+    "hcPlanejado": 0,
+    "hcReal": 0,
+    "tma": 0,
+    "conversao": 0,
+    "produtividade": 0
+  }
+}
