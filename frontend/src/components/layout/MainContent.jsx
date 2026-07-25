@@ -1,19 +1,22 @@
+import KPIGrid from "../dashboard/KPIGrid";
+
 function MainContent() {
     return (
         <main className="flex-1 bg-slate-100 p-6">
 
-            <div className="bg-white rounded-xl shadow p-6 h-full">
+            <div className="bg-white rounded-x1 shadow p-6 h-full">
 
-                <h2 className="text-3xl font-bold">
-                    Dashboard Atenas IA
+                <h2 className="text-3x1 font-bold">
+                    Dashboard ATENAS-IA
                 </h2>
 
-                <p className="text-slate-500 mt-2">
-                    Em breve os indicadores aparecerão aqui.
-                </p>
+                <P className="text-slade-500 mt-2 mb-8">
+                    Indicadores da análise processada.
+                </P>
+
+                <KPIGrid />
 
             </div>
-
         </main>
     );
 }
