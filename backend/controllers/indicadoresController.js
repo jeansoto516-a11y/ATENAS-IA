@@ -8,9 +8,12 @@ exports.buscarIndicadores = (req, res) => {
         const caminhoJson = path.join(
             __dirname,
             "..",
-            "uploads",
             "indicadores.json"
         );
+
+        console.log("Procurando JSON em:");
+        console.log(caminhoJson);
+        console.log("Existe?", fs.existsSync(caminhoJson));
 
         if (!fs.existsSync(caminhoJson)) {
 
