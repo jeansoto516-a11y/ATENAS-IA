@@ -6,13 +6,9 @@ exports.buscarIndicadores = (req, res) => {
     try {
 
         const caminhoJson = path.join(
-            "C:",
-            "Users",
-            "Samsung",
-            "OneDrive",
-            "Desktop",
-            "HUB 2026",
-            "ANALISES_R",
+            __dirname,
+            "..",
+            "uploads",
             "indicadores.json"
         );
 
