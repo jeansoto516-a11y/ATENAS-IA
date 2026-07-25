@@ -3,6 +3,6 @@ const router = express.Router();
 
 const indicadoresController = require("../controllers/indicadoresController");
 
-router.get("/", indicadoresController.buscarindicadores);
+router.get("/", indicadoresController.buscarIndicadores);
 
 module.exports = router;
