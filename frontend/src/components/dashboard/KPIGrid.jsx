@@ -1,46 +1,25 @@
 import KPICard from "./KPICard";
 
-function KPIGrid() {
+const configuracao = [
+    ["sla", "SLA", "%"], ["forecast", "Forecast", "%"], ["hcPlanejado", "HC planejado", ""],
+    ["hcReal", "HC real", ""], ["tma", "TMA", "s"], ["conversao", "Conversão", "%"],
+    ["produtividade", "Produtividade", "%"]
+];
+
+function formatar(valor, sufixo) {
+    if (valor === null || valor === undefined || Number.isNaN(Number(valor))) return "—";
+    const numero = Number(valor);
+    return `${numero.toLocaleString("pt-BR", { maximumFractionDigits: 2 })}${sufixo}`;
+}
+
+function KPIGrid({ dados }) {
+    const kpis = dados?.kpis || {};
     return (
-        <div className="grid grid-cols-3 gap-6">
-
-            <KPICard
-                titulo="SLA"
-                valor="92,4%"
-                variacao="+1,2%"
-            />
-
-            <KPICard
-                titulo="TMA"
-                valor="235s"
-                variacao="-8s"
-            />
-
-            <KPICard
-                titulo="HC"
-                valor="148"
-                variacao="+3"
-            />
-
-            <KPICard
-                titulo="Conversão"
-                valor="38%"
-                variacao="+5%"
-            />
-
-            <KPICard
-                titulo="Forecast"
-                valor="96%"
-                variacao="-1%"
-            />
-
-            <KPICard
-                titulo="Produtividade"
-                valor="88%"
-                variacao="+2%"
-            />
-
-        </div>
+        <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            {configuracao.map(([chave, titulo, sufixo]) => (
+                <KPICard key={chave} titulo={titulo} valor={formatar(kpis[chave], sufixo)} />
+            ))}
+        </section>
     );
 }
 

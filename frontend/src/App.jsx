@@ -8,6 +8,8 @@ function App() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/dashboard/diario" element={<Dashboard periodo="diario" />} />
+      <Route path="/dashboard/horario" element={<Dashboard periodo="horario" />} />
     </Routes>
   );
 }

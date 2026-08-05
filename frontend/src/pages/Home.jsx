@@ -39,14 +39,13 @@ function Home() {
 
     console.log(resposta);
 
-    alert("Arquivo enviado com sucesso!");
+    alert("Arquivo processado com sucesso!");
     setProcessamentoConcluido(true);
 
     } catch (erro) {
 
     console.error(erro);
-
-    alert("Erro ao enviar arquivo.");
+    alert(erro.response?.data?.detalhes || erro.response?.data?.error || "Não foi possível enviar o arquivo. Verifique se o backend está em execução.");
 
     }
 

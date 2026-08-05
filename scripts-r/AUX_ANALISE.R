@@ -1145,6 +1145,7 @@ if (extensao %in% c("xlsx", "xls")) {
 
 abas_existentes <- names(wb)
 graficos_para_inserir <- list()
+dados_processados <- list()
 
 cat("Abas para analisar:", paste(abas_para_ler, collapse = "; "), "\n")
 
@@ -1174,6 +1175,7 @@ for (aba_lida in abas_para_ler) {
   wb <- resultado_aba$wb
   abas_existentes <- resultado_aba$abas_existentes
   graficos_para_inserir <- resultado_aba$graficos_para_inserir
+  dados_processados[[length(dados_processados) + 1]] <- dados
 }
 
 ##############################################################
@@ -1203,29 +1205,95 @@ cat("--------------------------------------\n")
 ## EXPORTAR INDICADORES PARA JSON
 ##############################################################
 
+media_indicador <- function(bases, padroes, percentual = FALSE) {
+  valores <- unlist(lapply(bases, function(base) {
+    nomes <- normalizar_nome(names(base))
+    colunas <- which(sapply(nomes, function(nome) any(sapply(padroes, function(padrao) str_detect(nome, fixed(padrao))))))
+    colunas_reais <- colunas[str_detect(nomes[colunas], fixed("REAL"))]
+    if (length(colunas_reais) > 0) colunas <- colunas_reais
+    if (length(colunas) == 0) return(numeric())
+    unlist(lapply(base[colunas], converter_numero), use.names = FALSE)
+  }), use.names = FALSE)
+
+  valores <- valores[!is.na(valores) & is.finite(valores)]
+  if (length(valores) == 0) return(NA_real_)
+  resultado <- mean(valores)
+  if (percentual && abs(resultado) <= 1) resultado <- resultado * 100
+  round(resultado, 2)
+}
+
 indicadores <- list(
   metadata = list(
     status = "ok",
     versao = "1.0",
-    dataProcessamento = as.character(Sys.time())
+    dataProcessamento = as.character(Sys.time()),
+    arquivo = nome_arquivo_entrada
   ),
   
   kpis = list(
-    sla = 0,
-    forecast = 0,
-    hcPlanejado = 0,
-    hcReal = 0,
-    tma = 0,
-    conversao = 0,
-    produtividade = 0
+    sla = media_indicador(dados_processados, c("SLA", "TSF"), TRUE),
+    forecast = media_indicador(dados_processados, c("FORECAST"), TRUE),
+    hcPlanejado = media_indicador(dados_processados, c("HC PLANO", "HEADCOUNT PLANO")),
+    hcReal = media_indicador(dados_processados, c("HC REAL", "HEADCOUNT REAL")),
+    tma = media_indicador(dados_processados, c("TMA")),
+    conversao = media_indicador(dados_processados, c("CONVERSAO", "CONVERSÃO"), TRUE),
+    produtividade = media_indicador(dados_processados, c("PRODUTIVIDADE"), TRUE)
   )
 )
 
 write_json(
   indicadores,
-  file.path(dirname(nome_arquivo_saida), "indicadores.json"),
+  file.path(pasta_arquivo, "indicadores.json"),
   pretty = TRUE,
-  auto_unbox = TRUE
+  auto_unbox = TRUE,
+  na = "null"
+)
+
+criar_dados_dashboard <- function(bases, tipo) {
+  registros <- list()
+  padroes <- if (tipo == "diario") c("DATA", "DIA", "DATE") else c("HORA", "HORARIO", "HR", "TIME")
+
+  for (dados in bases) {
+    nomes <- names(dados)
+    nomes_norm <- normalizar_nome(nomes)
+    pos_intervalo <- which(sapply(nomes_norm, function(nome) any(sapply(padroes, function(padrao) str_detect(nome, fixed(padrao))))))
+    if (length(pos_intervalo) == 0) next
+    coluna_intervalo <- nomes[pos_intervalo[1]]
+    pares <- detectar_comparativos(dados)
+    if (nrow(pares) == 0) next
+
+    for (i in seq_len(nrow(pares))) {
+      base <- data.frame(
+        intervalo = as.character(dados[[coluna_intervalo]]),
+        indicador = pares$indicador[i],
+        real = converter_numero(dados[[pares$real[i]]]),
+        plano = converter_numero(dados[[pares$plano[i]]]),
+        stringsAsFactors = FALSE
+      ) %>%
+        filter(!is.na(intervalo), intervalo != "") %>%
+        group_by(intervalo, indicador) %>%
+        summarise(real = mean(real, na.rm = TRUE), plano = mean(plano, na.rm = TRUE), .groups = "drop")
+      registros[[length(registros) + 1]] <- base
+    }
+  }
+
+  if (length(registros) == 0) return(data.frame(intervalo = character(), indicador = character(), real = numeric(), plano = numeric()))
+  bind_rows(registros) %>% mutate(real = ifelse(is.nan(real), NA_real_, round(real, 2)), plano = ifelse(is.nan(plano), NA_real_, round(plano, 2)))
+}
+
+dashboard <- list(
+  metadata = list(arquivo = nome_arquivo_entrada, dataProcessamento = as.character(Sys.time())),
+  diario = criar_dados_dashboard(dados_processados, "diario"),
+  horario = criar_dados_dashboard(dados_processados, "horario")
+)
+
+write_json(
+  dashboard,
+  file.path(pasta_arquivo, "dashboard.json"),
+  pretty = TRUE,
+  auto_unbox = TRUE,
+  na = "null",
+  dataframe = "rows"
 )
 
 cat("\n✅ Arquivo indicadores.json criado com sucesso!\n")

@@ -1,50 +1,24 @@
-import { useEffect, useState  } from "react";
-import axios from "axios";
+import { useEffect, useState } from "react";
+import api from "../../services/api";
 import KPIGrid from "../dashboard/KPIGrid";
+import ChatPanel from "../dashboard/ChatPanel";
 
 function MainContent() {
-
     const [indicadores, setIndicadores] = useState(null);
+    const [erro, setErro] = useState("");
 
     useEffect(() => {
-
-        async function carregarIndicadores() {
-
-            try {
-
-                const response = await axios.get("http://localhost:3000/api/indicadores");
-
-                setIndicadores(response.data);
-
-            } catch (error) {
-
-                console.error("Erro ao buscar indicadores:", error);
-
-            }
-
-        }
-
-        carregarIndicadores();
-
+        api.get("/api/indicadores").then((response) => setIndicadores(response.data)).catch(() => setErro("Processe um arquivo para visualizar os indicadores."));
     }, []);
 
     return (
-        <main className="flex-1 bg-slate-100 p-6">
-
-            <div className="bg-white rounded-xl shadow p-6 h-full">
-
-                <h2 className="text-3xl font-bold">
-                    Dashboard Atenas IA
-                </h2>
-
-                <p className="text-slate-500 mt-2 mb-8">
-                    Indicadores da análise processada.
-                </p>
-
-                <KPIGrid dados={indicadores} />
-
+        <main className="flex-1 overflow-y-auto bg-slate-100 p-6">
+            <div className="mx-auto max-w-7xl">
+                <h2 className="text-3xl font-bold text-slate-900">Dashboard Atenas IA</h2>
+                <p className="mb-6 mt-2 text-slate-500">Indicadores da última análise processada.</p>
+                {erro ? <p className="rounded-lg bg-amber-50 p-4 text-amber-800">{erro}</p> : <KPIGrid dados={indicadores} />}
+                <ChatPanel />
             </div>
-
         </main>
     );
 }

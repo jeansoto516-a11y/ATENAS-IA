@@ -2,15 +2,15 @@
   "metadata": {
     "status": "ok",
     "versao": "1.0",
-    "dataProcessamento": "2026-07-25 12:23:22.067889"
+    "dataProcessamento": "2026-08-05 19:50:35.34881"
   },
   "kpis": {
-    "sla": 0,
-    "forecast": 0,
-    "hcPlanejado": 0,
-    "hcReal": 0,
-    "tma": 0,
-    "conversao": 0,
-    "produtividade": 0
+    "sla": 72.97,
+    "forecast": null,
+    "hcPlanejado": 27.45,
+    "hcReal": 29.88,
+    "tma": 573.8,
+    "conversao": null,
+    "produtividade": null
   }
 }

@@ -11,10 +11,14 @@ app.use(express.json());
 const routes = require("./routes");
 const uploadRoutes = require("./routes/uploadRoutes");
 const indicadoresRoutes = require("./routes/indicadoresRoutes");
+const chatRoutes = require("./routes/chatRoutes");
+const dashboardRoutes = require("./routes/dashboardRoutes");
 
 app.use("/", routes);
 app.use("/upload", uploadRoutes);
 app.use("/api/indicadores", indicadoresRoutes);
+app.use("/api/chat", chatRoutes);
+app.use("/api/dashboard", dashboardRoutes);
 
 const PORT = process.env.PORT || 3000;
 

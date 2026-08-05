@@ -1,28 +1,10 @@
-function KPIcard({ titulo, valor, vriacao}) {
+function KPICard({ titulo, valor }) {
     return (
-        <div className="
-        bg-white
-        rounded-x1
-        shadow
-        p-5
-        border
-        border-slate-200
-        hover:shadow-lg
-        transition
-        ">
-            <h3 className="text-sm text-slate-500">
-                {titulo}
-            </h3>
-
-            <h2 className="text-3x1 font-bold mt-3 text-slate-800">
-                {valor}
-            </h2>
-
-            <p className="text-green-600 font-medium mt-3">
-                {variacao}
-            </p>
-        </div>
+        <article className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:shadow-md">
+            <h3 className="text-sm font-medium text-slate-500">{titulo}</h3>
+            <p className="mt-3 text-3xl font-bold text-slate-800">{valor}</p>
+        </article>
     );
 }
 
-export default KPIcard;
+export default KPICard;
